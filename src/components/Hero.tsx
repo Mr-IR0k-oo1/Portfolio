@@ -1,17 +1,24 @@
 import React from 'react';
-import { Canvas } from '@react-three/fiber';
-import HeroScene from '../scenes/HeroScene';
 import { motion } from 'framer-motion';
+import Dither from './Dither.tsx';
+
 
 const Hero: React.FC = () => {
   return (
     <section id="hero" className="hero" style={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-        <div className="hero-background" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-            <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-                <HeroScene />
-            </Canvas>
-        </div>
-        
+
+<div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+  <Dither
+    waveColor={[0.5, 0.5, 0.5]}
+    disableAnimation={false}
+    enableMouseInteraction={true}
+    mouseRadius={0.3}
+    colorNum={4}
+    waveAmplitude={0.3}
+    waveFrequency={3}
+    waveSpeed={0.05}
+  />
+</div>
         <div className="hero-content" style={{ zIndex: 1, position: 'relative', textAlign: 'center' }}>
             <motion.div 
                 initial={{ opacity: 0, y: 30 }}
