@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Dither from './Dither.tsx';
+import Beams from './Beam';
 
 
 const Hero: React.FC = () => {
@@ -8,17 +8,18 @@ const Hero: React.FC = () => {
     <section id="hero" className="hero" style={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
 
 <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
-  <Dither
-    waveColor={[0.5, 0.5, 0.5]}
-    disableAnimation={false}
-    enableMouseInteraction={true}
-    mouseRadius={0.3}
-    colorNum={4}
-    waveAmplitude={0.3}
-    waveFrequency={3}
-    waveSpeed={0.05}
+  <Beams
+    beamWidth={2}
+    beamHeight={15}
+    beamNumber={12}
+    lightColor="#ff0000"
+    speed={2}
+    noiseIntensity={1.75}
+    scale={0.2}
+    rotation={0}
   />
 </div>
+
         <div className="hero-content" style={{ zIndex: 1, position: 'relative', textAlign: 'center' }}>
             <motion.div 
                 initial={{ opacity: 0, y: 30 }}
@@ -33,7 +34,7 @@ const Hero: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className="hero-title"
+                className="hero-title font-display"
                 data-text="Alex Chen"
             >
                 Alex Chen
@@ -43,22 +44,19 @@ const Hero: React.FC = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="hero-subtitle"
+                className="hero-subtitle font-body"
             >
-                <span className="typing-text">Senior Full Stack Developer</span>
-                <span className="cursor">|</span>
+                <span className="typing-text"></span>
             </motion.div>
 
             <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }} 
-                className="hero-description"
-                style={{ maxWidth: '600px', margin: '0 auto', marginTop: '1rem' }}
+                className="hero-description font-body"
+                style={{ maxWidth: '700px', margin: '0 auto', marginTop: '1.5rem', color: 'white', fontSize: '1.1rem', lineHeight: '1.8' }}
             >
-                Building enterprise-grade web applications with modern technologies, 
-                focusing on security, performance, and exceptional user experiences. 
-                Specialized in scalable architectures and innovative solutions.
+                <b style={{ color: 'var(--accent-neon-orange)', fontWeight: 700 }}>Versatile Digital Creator</b> A web developer who builds secure applications, creates compelling motion graphics, and conducts cybersecurity research—blending technical precision with creative storytelling to protect and enhance digital experiences.
             </motion.p>
             
             <motion.div 

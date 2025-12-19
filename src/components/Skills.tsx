@@ -31,6 +31,7 @@ const Skills: React.FC = () => {
                 >
                     Technical Skills
                 </motion.h2>
+
                 <div className="skills-grid grid-responsive">
                     {skills.map((skill, index) => (
                         <motion.div 
