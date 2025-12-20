@@ -11,6 +11,9 @@ import Testimonials from './components/Testimonials';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Loader from './components/Loader';
+import SmoothScroll from './components/SmoothScroll';
+import CustomCursor from './components/CustomCursor';
+import Reveal from './components/Reveal';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiFramer } from 'react-icons/si';
 import './index.css';
 
@@ -39,24 +42,42 @@ function App() {
         {loading && <Loader key="loader" />}
       </AnimatePresence>
       
-      <Layout>
-        <Hero />
-        <About />
-        <Skills />
-        <LogoLoop 
-          logos={techLogos} 
-          speed={100} 
-          logoHeight={64} 
-          gap={120}
-          fadeOut
-          fadeOutColor="var(--background)"
-        />
-        <Experience />
-        <Portfolios />
-        <Testimonials />
-        <Projects />
-        <Contact />
-      </Layout>
+      <CustomCursor />
+      
+      <SmoothScroll>
+        <Layout>
+          <Hero />
+          <Reveal width="100%">
+            <About />
+          </Reveal>
+          <Reveal width="100%" delay={0.3}>
+            <Skills />
+          </Reveal>
+          <LogoLoop 
+            logos={techLogos} 
+            speed={100} 
+            logoHeight={64} 
+            gap={120}
+            fadeOut
+            fadeOutColor="var(--background)"
+          />
+          <Reveal width="100%">
+            <Experience />
+          </Reveal>
+          <Reveal width="100%">
+            <Portfolios />
+          </Reveal>
+          <Reveal width="100%">
+            <Testimonials />
+          </Reveal>
+          <Reveal width="100%">
+            <Projects />
+          </Reveal>
+          <Reveal width="100%">
+            <Contact />
+          </Reveal>
+        </Layout>
+      </SmoothScroll>
     </>
   );
 }

@@ -1,56 +1,68 @@
-import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere, Box, Torus } from '@react-three/drei';
+import { Float, MeshTransmissionMaterial, Stars as DreiStars } from '@react-three/drei';
 import * as THREE from 'three';
 
 const HeroScene: React.FC = () => {
     return (
         <>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} color="orange" />
+            <ambientLight intensity={0.2} />
+            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} castShadow />
+            <pointLight position={[-10, -10, -10]} intensity={1} color="#ff5722" />
             
-            <group>
-                 {/* Recreating some geometric shapes from the original design */}
-                <Box position={[-2, 1, -2]} args={[1, 1, 1]}>
-                    <meshStandardMaterial color={'#ff6b35'} wireframe />
-                </Box>
-                <Sphere position={[2, -1, -3]} args={[0.5, 32, 32]}>
-                    <meshStandardMaterial color={'#4a9eff'} transparent opacity={0.6} />
-                </Sphere>
-                <Torus position={[0, 0, -5]} args={[3, 0.2, 16, 100]} rotation={[Math.PI / 4, Math.PI / 4, 0]}>
-                     <meshStandardMaterial color={'#9d4edd'} wireframe />
-                </Torus>
-            </group>
+            <Float speed={2} rotationIntensity={1} floatIntensity={2}>
+              <mesh position={[-2, 1, -2]}>
+                <boxGeometry args={[1.5, 1.5, 1.5]} />
+                <MeshTransmissionMaterial 
+                  backside 
+                  samples={4} 
+                  thickness={1} 
+                  chromaticAberration={0.02} 
+                  anisotropy={0.1} 
+                  distortion={0.1} 
+                  distortionScale={0.1} 
+                  temporalDistortion={0.1} 
+                  color="#ff6b35"
+                />
+              </mesh>
+            </Float>
+
+            <Float speed={3} rotationIntensity={2} floatIntensity={1}>
+              <mesh position={[3, -1, -2]}>
+                <sphereGeometry args={[1, 32, 32]} />
+                <MeshTransmissionMaterial 
+                  backside 
+                  samples={4} 
+                  thickness={2} 
+                  chromaticAberration={0.05} 
+                  anisotropy={0.1} 
+                  distortion={0.5} 
+                  distortionScale={0.1} 
+                  temporalDistortion={0.1} 
+                  color="#4a9eff"
+                />
+              </mesh>
+            </Float>
+
+            <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+              <mesh position={[-0.5, -2, -4]} rotation={[Math.PI / 4, 0, Math.PI / 6]}>
+                <torusGeometry args={[3, 0.05, 16, 100]} />
+                <meshStandardMaterial color="#9d4edd" emissive="#9d4edd" emissiveIntensity={2} />
+              </mesh>
+            </Float>
             
-            <Stars />
+            <DreiStars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+            <Rig />
         </>
     );
 };
 
-function Stars() {
-  const group = useRef<THREE.Group>(null);
-  const stars = new Array(100).fill(0).map(() => ({
-    pos: [Math.random() * 20 - 10, Math.random() * 20 - 10, Math.random() * 10 - 15],
-    speed: Math.random() * 0.02
-  }));
-
-  useFrame(() => {
-    if (group.current) {
-        group.current.rotation.y += 0.001;
-    }
+function Rig() {
+  useFrame((state) => {
+    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, (state.pointer.x * 2), 0.05);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, (state.pointer.y * 2), 0.05);
+    state.camera.lookAt(0, 0, 0);
   });
-
-  return (
-    <group ref={group}>
-      {stars.map((star, i) => (
-        <mesh key={i} position={star.pos as [number, number, number]}>
-          <sphereGeometry args={[0.05, 8, 8]} />
-          <meshBasicMaterial color="white" />
-        </mesh>
-      ))}
-    </group>
-  );
+  return null;
 }
 
 export default HeroScene;

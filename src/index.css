@@ -96,6 +96,17 @@ body {
 .leading-normal { line-height: 1.6; }
 .leading-relaxed { line-height: 1.75; }
 
+.scroll-progress-enhanced {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-orange);
+    transform-origin: 0%;
+    z-index: 10001;
+}
+
 body::before {
     content: '';
     position: fixed;
@@ -486,38 +497,77 @@ body::before {
     transform: rotate(5deg);
 }
 
-/* Enhanced cursor effects */
+/* Cinematic Film Grain Overlay */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Custom Cursor Styles */
 .custom-cursor {
     position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--accent-neon-orange);
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--accent-neon-orange);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cursor-dot {
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+}
+
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 64px;
+    border: 1px solid var(--accent-neon-orange);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: all 0.1s ease;
     transform: translate(-50%, -50%);
 }
 
-.custom-cursor.hover {
-    transform: translate(-50%, -50%) scale(1.5);
-    background: rgba(255, 107, 53, 0.1);
+/* Hide default cursor on desktop */
+@media (pointer: fine) {
+    body {
+        cursor: none;
+    }
+    a, button, .magnetic-btn, .hover-trigger {
+        cursor: none;
+    }
 }
 
-.custom-cursor.click {
-    transform: translate(-50%, -50%) scale(0.8);
+/* Refined Typography */
+.font-display {
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
 }
 
-.cursor-follower {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 107, 53, 0.05);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: all 0.3s ease;
-    transform: translate(-50%, -50%);
+.hero-title {
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 0.9;
+    margin-bottom: 2rem;
 }
 
 /* Smooth reveal animations */
