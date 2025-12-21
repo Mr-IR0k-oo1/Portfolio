@@ -501,14 +501,28 @@ body::before {
 body::after {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
     background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-    opacity: 0.05;
+    opacity: 0.04;
     pointer-events: none;
     z-index: 9999;
+    animation: noise 0.5s infinite;
+}
+
+@keyframes noise {
+    0% { transform: translate(0,0) }
+    10% { transform: translate(-5%,-10%) }
+    20% { transform: translate(-15%,5%) }
+    30% { transform: translate(7%,-25%) }
+    40% { transform: translate(-5%,25%) }
+    50% { transform: translate(-15%,10%) }
+    60% { transform: translate(15%,0%) }
+    70% { transform: translate(0%,15%) }
+    80% { transform: translate(3%,35%) }
+    90% { transform: translate(-10%,10%) }
 }
 
 /* Custom Cursor Styles */
@@ -516,8 +530,8 @@ body::after {
     position: fixed;
     top: 0;
     left: 0;
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     background: var(--accent-neon-orange);
     border-radius: 50%;
     pointer-events: none;
@@ -526,6 +540,36 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), 
+                height 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 0.3s ease;
+}
+
+.custom-cursor.mode-pointer {
+    width: 64px;
+    height: 64px;
+    background: white;
+}
+
+.custom-cursor.mode-view {
+    width: 80px;
+    height: 80px;
+    background: white;
+}
+
+.custom-cursor.mode-text {
+    width: 2px;
+    height: 24px;
+    border-radius: 0;
+    background: white;
+}
+
+.cursor-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: black;
+    letter-spacing: 0.1em;
 }
 
 .cursor-dot {
@@ -539,13 +583,32 @@ body::after {
     position: fixed;
     top: 0;
     left: 0;
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     border: 1px solid var(--accent-neon-orange);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), 
+                height 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.3s ease;
+}
+
+.cursor-ring.mode-pointer {
+    width: 80px;
+    height: 80px;
+    opacity: 0.2;
+}
+
+.cursor-ring.mode-view {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+}
+
+.cursor-ring.mode-text {
+    opacity: 0;
 }
 
 /* Hide default cursor on desktop */
@@ -2806,13 +2869,14 @@ section:not(.hero)::after {
 }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: box-shadow 0.4s ease, border-color 0.4s ease;
     position: relative;
+    transform-style: preserve-3d;
 }
 
 body.light-theme .project-card {
@@ -2834,9 +2898,8 @@ body.light-theme .project-card {
 }
 
 .project-card:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(255, 107, 53, 0.15);
-    border-color: rgba(255, 107, 53, 0.3);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 107, 53, 0.1);
+    border-color: rgba(255, 107, 53, 0.4);
 }
 
 .project-image {
@@ -2884,7 +2947,8 @@ body.light-theme .project-card {
 }
 
 .project-content {
-    padding: 1.5rem;
+    padding: 2rem;
+    transform-style: preserve-3d;
 }
 
 .project-content h3 {

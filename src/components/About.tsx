@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import Reveal from './Reveal';
 
 const Counter = ({ target }: { target: number }) => {
     const [count, setCount] = useState(0);
@@ -28,19 +28,41 @@ const Counter = ({ target }: { target: number }) => {
 };
 
 const About: React.FC = () => {
+    const sectionRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"]
+    });
+
+    const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+    const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
     return (
-        <section id="about" className="about">
-            <div className="container">
-                <motion.h2 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="section-title"
-                >
-                    About Me
-                </motion.h2>
-                <div className="about-content">
+        <section id="about" className="about" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
+            {/* Parallax Background Elements */}
+            <motion.div 
+                style={{ 
+                    position: 'absolute', 
+                    top: '10%', 
+                    right: '5%', 
+                    fontSize: '15rem', 
+                    fontWeight: 900, 
+                    color: 'rgba(255,255,255,0.02)',
+                    zIndex: 0,
+                    y: y1
+                }}
+            >
+                ABOUT
+            </motion.div>
+
+            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+                <Reveal>
+                    <h2 className="section-title">About Me</h2>
+                </Reveal>
+                <motion.div style={{ opacity }} className="about-content">
                     <motion.div 
+                        style={{ y: y2 }}
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -78,7 +100,7 @@ const About: React.FC = () => {
                             </div>
                         </div>
                     </motion.div>
-                    <div className="about-stats">
+                    <motion.div className="about-stats" style={{ y: y1 }}>
                         {[
                             { label: 'Projects Delivered', value: 50 },
                             { label: 'Years Experience', value: 8 },
@@ -99,8 +121,8 @@ const About: React.FC = () => {
                                 <span className="stat-label">{stat.label}</span>
                             </motion.div>
                         ))}
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
         </section>
     );

@@ -1,18 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 
 const Experience: React.FC = () => {
     return (
         <section id="experience" className="experience">
             <div className="container">
-                <motion.h2 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="section-title"
-                >
-                    Professional Experience
-                </motion.h2>
+                <Reveal>
+                    <h2 className="section-title">Professional Experience</h2>
+                </Reveal>
                 <div className="timeline">
                     {[
                         {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 
 const Skills: React.FC = () => {
     const skills = [
@@ -23,14 +24,9 @@ const Skills: React.FC = () => {
     return (
         <section id="skills" className="skills">
             <div className="container">
-                <motion.h2 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="section-title"
-                >
-                    Technical Skills
-                </motion.h2>
+                <Reveal>
+                    <h2 className="section-title">Technical Skills</h2>
+                </Reveal>
 
                 <div className="skills-grid grid-responsive">
                     {skills.map((skill, index) => (

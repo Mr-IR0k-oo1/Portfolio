@@ -7,7 +7,7 @@ interface RevealProps {
   delay?: number;
 }
 
-const Reveal = ({ children, width = 'fit-content', delay = 0.25 }: RevealProps) => {
+const Reveal = ({ children, width = '100%', delay = 0.25 }: RevealProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
@@ -27,28 +27,10 @@ const Reveal = ({ children, width = 'fit-content', delay = 0.25 }: RevealProps) 
         }}
         initial="hidden"
         animate={mainControls}
-        transition={{ duration: 0.5, delay }}
+        transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
       </motion.div>
-      <motion.div
-        variants={{
-          hidden: { left: 0 },
-          visible: { left: '100%' },
-        }}
-        initial="hidden"
-        animate={mainControls}
-        transition={{ duration: 0.5, ease: 'easeIn' }}
-        style={{
-          position: 'absolute',
-          top: 4,
-          bottom: 4,
-          left: 0,
-          right: 0,
-          background: 'var(--accent-neon-orange)',
-          zIndex: 20,
-        }}
-      />
     </div>
   );
 };

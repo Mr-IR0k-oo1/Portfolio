@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 
 const Contact: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -28,14 +28,9 @@ const Contact: React.FC = () => {
     return (
         <section id="contact" className="contact">
             <div className="container">
-                <motion.h2 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="section-title"
-                >
-                    Get In Touch
-                </motion.h2>
+                <Reveal>
+                    <h2 className="section-title">Get In Touch</h2>
+                </Reveal>
                 <div className="contact-content">
                     <div className="contact-info">
                         <h3>Let's Build Something Amazing</h3>

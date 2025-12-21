@@ -1,0 +1,6 @@
+
+> portfolio-conversion@0.0.0 build
+> tsc && vite build
+
+src/components/CustomCursor.tsx(61,10): error TS2304: Cannot find name 'AnimatePresence'.
+src/components/CustomCursor.tsx(72,11): error TS2304: Cannot find name 'AnimatePresence'.

@@ -1,18 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 
 const Testimonials: React.FC = () => {
     return (
         <section id="testimonials" className="testimonials">
             <div className="container">
-                <motion.h2 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="section-title"
-                >
-                    Client Testimonials
-                </motion.h2>
+                <Reveal>
+                    <h2 className="section-title">Client Testimonials</h2>
+                </Reveal>
                 <div className="testimonials-grid grid-responsive">
                     {[
                         {
